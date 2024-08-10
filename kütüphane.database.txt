@@ -1,0 +1,614 @@
+--Öğrenci tablosundaki tüm kayıtları listeleyin.
+select * from ogrenci
+--Öğrenci tablosundaki öğrenci no,ad ve soyad kayıtlarını listeleyin.
+select ogrno,ad,soyad from ogrenci
+--Öğrenci tablosundaki cinsiyeti kız olanları listeleyin.
+select *from ogrenci
+where cinsiyet='K'
+--Öğrenci tablosundaki cinsiyeti erkek olanları listeleyin.
+select *from ogrenci 
+where cinsiyet='E'
+---Öğrenci tablosundaki cinsiyeti hem erkek hem de kız olanları listeleyin.
+select *from ogrenci
+where cinsiyet IN('K','E');
+--Bir öğrenci tablosundan ismi tam olarak 4 karakter uzunluğunda olan öğrencileri listeleyin.
+select *from ogrenci 
+where ad LIKE '____';
+---Bir öğrenci tablosundan baş harfi M harfi ile başlayıp 3.karakteri L olan soyadları listeleyin.
+select *from ogrenci
+where soyad LIKE 'M_L%';
+--Bir öğrenci tablosundan puanın son rakamı 2 ile bitenleri listeleyin.
+select *from ogrenci
+where puan LIKE '%2';
+--Bir öğrenci tablosundan adı Gül ile başlayanları listeleyin.
+select *from ogrenci
+where ad LIKE 'Gül%';
+--Bir öğrenci tablosundan adda "ne"geçen isimleri listeleyin.
+select *from ogrenci
+where ad LIKE '%ne%';
+--Bir öğrenci tablosundan adda "il" ve "ra" geçen isimleri listeleyin.
+select *from ogrenci
+where ad LIKE '%il%ra%';
+--"Ogrenci tablosunda bulunan 'ad' sütunundaki tekrar edenleri kaldırarak, benzersiz (distinct) öğrenci isimlerini seçin."
+select DISTINCT ad
+from ogrenci;
+--Öğrenci tablosundan adı artan sırayla listele.
+select *from ogrenci
+ORDER BY ad;
+--Öğrenci tablosundan adı artan sırayla listele.
+select *from ogrenci
+ORDER BY soyad DESC;
+--Öğrenci tablosundan sınıfI artan, puanı azalan sırayla listele.
+select sinif,puan from ogrenci
+order by sinif ASC,puan DESC;
+--Öğrenci tablosundan ada göre gruplama yapın.
+SELECT ad, COUNT(*) AS isim_adedi
+from ogrenci
+Group by ad;
+--Tür tablosunda tür no ve tür adına göre gruplama ve her türdeki tür no ve adını bulun.
+select turno, ad, COUNT(*) as tur_adı
+from tur
+group by turno, ad;
+
+--Öğrenci tablosundan cinsiyet kolonuna göre gruplama ve her gruptaki öğrenci sayısını bulun.
+select cinsiyet, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+Group by cinsiyet;
+
+--Öğrenci tablosundan sinif sütununa göre gruplama ve her sınıftaki öğrencilerin ortalama puanı bulun.
+select sinif, AVG(puan) as ortalama_puan
+from ogrenci
+Group by sinif;
+--Öğrenci tablosundan dtarih sütununa göre gruplama ve her doğum tarihine göre öğrenci sayısını bulun.
+select dtarih, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by dtarih
+order by dtarih;
+--Öğrenci tablosundan ad ve soyad sütununa göre gruplama ve her isim kombinasyonuna göre öğrenci sayısını bulun.
+select ad,soyad, COUNT(*) as ogrenci_sayisi
+from ogrenci
+group by ad,soyad
+order by ad,soyad;
+--Öğrenci tablosundan sinif ve cinsiyet sütunlarına göre gruplama ve her sınıf ve cinsiyet kombinasyonuna göre ortalama puanı bulun.
+select sinif,cinsiyet, AVG(puan) as ortalama_puan
+from ogrenci
+group by sinif,cinsiyet
+order by sinif,cinsiyet;
+--Öğrenci tablosundan en yüksek ve en düşük puan bulun .
+select Max(puan) as en_yüksek_puan,MIN(puan) as en_düsük_puan
+from ogrenci;
+--Öğrenci tablosundan her sınıftaki en yüksek puanı  bulun.
+select sinif, Max(puan) as en_yüksek_puan
+from ogrenci
+GROUP BY sinif , puan;
+--Öğrenci tablosundan en genç ve en yaşlı öğrenciyi bulun.
+select Max(dtarih) as en_genc_ogrenci, MIN(dtarih) as en_yaslı_ogrenci
+from ogrenci;
+--Öğrenci tablosundan cinsiyete göre en yüksek  ve en düşük puanları bulun.
+select cinsiyet, MAX(puan) as en_yüksek_puan, MIN(puan) as en_düsük_puan
+from ogrenci 
+group by cinsiyet;
+--Öğrenci tablosundan en yüksek puanı alan öğrenciyi bulun.
+select *from ogrenci
+where puan=(select MAX(puan) from ogrenci);
+--Öğrenci tablosundan en düşük puanı alan öğrenciyi bulun.
+select *from ogrenci
+where puan=(select MIN(puan) from ogrenci);
+--Öğrenci tablosundan en yüksek puanı alan öğrenciyi bulun.
+select ad,soyad,puan
+from ogrenci
+where puan=(select Max(puan)as en_yüksek_puan from ogrenci);
+--Öğrenci tablosundan sınıflara göre öğrencileri bulun.
+select sinif,COUNT(*) ogrenci_sayisi
+from ogrenci
+group by sinif;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrencileri bulun.
+select ad,soyad ,COUNT(*) AS ogrenciler
+from ogrenci
+where dtarih>'2000-01-01'
+group by ad,soyad;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrenci sayısını bulun.
+select COUNT(*) AS ogrenciler
+from ogrenci
+where dtarih>'2000-01-01';
+--Öğrenci tablosundan adı 'A'ile başlayann öğrenci sayısını bulun.
+select COUNT(*) AS ogrenci_sayısı
+from ogrenci
+where ad LIKE 'A%';
+--Öğrenci tablosundan adı 'A'ile başlayann öğrencileri bulun.
+SELECT ad,COUNT(*)AS ogrenci_sayısı
+from ogrenci
+where ad LIKE 'A%'
+GROUP BY ad;
+--Öğrenci tablosundan belirli bir puandan düşük alan öğrencileri bulun.
+select ad,soyad,puan, COUNT(*) AS ogrenciler
+from ogrenci
+where puan<'78'
+group by ad,soyad,puan;
+--Öğrenci tablosundan belirli bir puandan düşük alan öğrenci sayısını bulun.
+select COUNT(*) AS ogrenciler
+from ogrenci
+where puan<'78';
+--Öğrenci tablosundan tüm öğrencilerin ortalama puanını bulun.
+select AVG(puan) as ortalama
+from ogrenci;
+--Öğrenci tablosundan sınıflara ortalama puanı bulun.
+select sinif,AVG(puan) as ortalama_puan
+from ogrenci 
+group by sinif;
+--Öğrenci tablosundan doğum yılına göre ortalama puanı bulun.
+select dtarih,AVG(puan) as ortalama_puan
+from ogrenci
+group by dtarih; 
+--Öğrenci tablosundan ortalama puanın üzerinde puan alan öğrencileri bulun.
+select AVG(puan) as yüksek_performans_ortalama
+from ogrenci
+where puan > (select AVG(puan) from ogrenci);
+--Öğrenci tablosundan tüm öğrencilerin toplam puanını bulun.
+select SUM(puan) as toplam_puan
+from ogrenci;
+--Öğrenci tablosundan cinsiyete göre toplam puanını bulun.
+select cinsiyet, SUM(puan) as toplam_puan
+from ogrenci
+group by cinsiyet;
+--Öğrenci tablosundan sınıflara göre toplam puanını bulun.
+select sinif,SUM(puan) as toplam_puan
+from ogrenci
+group by sinif;
+--Öğrenci tablosundan doğum yılına göre toplam puanını bulun.
+select dtarih, SUM(puan) as toplam_puan
+from ogrenci
+group by dtarih;
+--Öğrenci tablosundan doğum yılına göre toplam puanını bulun.
+select YEAR(dtarih) as dogum_yili, Sum(puan) as toplam_puan
+from ogrenci
+group by dtarih;
+--Öğrenci tablosundan ad,soyada göre toplam puanını bulun.
+select ad,soyad, SUM(puan) as toplam_puan
+from ogrenci
+group by ad,soyad
+--Öğrenci tablosundan cinsiyet ve sınıfa soyada göre toplam puanını bulun.
+select cinsiyet,sinif, SUM(puan) as toplam_puan
+from ogrenci
+group by cinsiyet,sinif;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrencilerin toplam puanını bulun.
+select SUM(puan) as toplam_puan
+from ogrenci
+where dtarih > '1988-01-01';
+--Öğrenci tablosundan belirli sınıflardaki öğrencileri listele.
+select *from ogrenci
+where sinif IN('9C', '10D','12B');
+--Öğrenci tablosundan belirli öğrenci numaralarına sahip öğrencileri listele.
+select *from ogrenci
+where no IN('80','81','82','83');
+--Öğrenci tablosundan belirli isimlerine sahip öğrencileri listele.
+select *from ogrenci
+where ad IN('Ayşe', 'Büşra', 'Meltem', 'Ali');
+--Öğrenci tablosundan belirli yıllarda doğan öğrencileri listele.
+select *from ogrenci
+where YEAR(dtarih) IN(1948,1949,1950);
+--Öğrenci tablosundan belirli puan aralıklarındaki öğrencileri listele.
+select *from ogrenci
+where puan IN(63,70,75,80,90);
+--Öğrenci tablosundan belirli cinsiyetlerdeki öğrencilerin ortalama puanını hesapla.
+select cinsiyet, AVG(puan) as ortalama_puan
+from ogrenci
+where cinsiyet IN('K','E')
+GROUP BY cinsiyet;
+--Öğrenci tablosundan ad ve soyadlarını birleştirerek tam isimlerini oluşturur.
+select CONCAT(ad,  '  '  , soyad) as tam_isim
+from ogrenci;
+--Öğrenci tablosundan öğrenci numarası ve ismi birleştirir.
+select CONCAT(ogrno, ' - ', ad, '  ' , soyad) as ogrenci_bilgisi
+from ogrenci;
+--Öğrenci tablosundan öğrenci bilgilerini tek bir kolonda birleştirir.
+select CONCAT(ogrno, ' l ', ad, ' ', soyad, ' l ', dtarih, ' l ', cinsiyet, ' l ', sinif, ' l ', 
+puan, ' l ', no) as ogeenci_detay
+from ogrenci;
+--Öğrenci tablosundan e-posta adresi oluşturur.
+select ad,soyad,CONCAT(LOWER(ad),  '.', LOWER(soyad), '@okul.edu') as email
+from ogrenci;
+--Öğrenci tablosundan öğrencileri puana göre azalan sırada sırala.
+select *from ogrenci
+order by puan DESC;
+--Öğrenci tablosundan öğrencileri soyadına göre alfabetik sırala.
+select *from ogrenci
+order by soyad,ad;
+--Öğrenci tablosundan öğrencileri sınıfa göre artan puana göre azalan sırada sırala
+select *from ogrenci
+order by sinif ASC, puan DESC;
+--Öğrenci tablosundan doğum tarihine göre sırala(en geçten en yaşlıya)
+select dtarih
+from ogrenci
+order by dtarih DESC;
+--Öğrenci tablosundan öğrenci numarasına göre artan sırada sırala
+select *from ogrenci
+order by ogrno;
+--Öğrenci tablosundan öğrenci numarasına göre azalan sırada sırala
+select *from ogrenci
+order by ogrno DESC;
+--Öğrenci tablosundan öğrencileri ogrenci no ve sınıfa göre alfabetik sırala
+select ogrno, sinif 
+from ogrenci
+order by ogrno,sinif ASC;
+--Öğrenci tablosundan öğrencileri puana göre azalan sırala ve ilk 30 öğrenciyi göster.
+select TOP 30 *from ogrenci
+order by puan DESC;
+--Öğrenci tablosundan öğrencileri adlarının son harfine göre alfabetik sırala
+SELECT *
+FROM ogrenci
+ORDER BY RIGHT(ad, 1) ASC; 
+--Sınıflara göre ögrenci sayısını bulun
+select sinif, COUNT(*) as ogrenci_sayisi
+from ogrenci
+group by sinif;
+--Cinsiyete göre öğrenci sayısı ve ortalama puanı bulun
+select cinsiyet, COUNT(*) AS ogrenci_sayisi, AVG(puan) as ortalama_puan
+from ogrenci
+group by cinsiyet;
+--Doğum yılına göre öğrenci sayısını bulun
+select dtarih, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by dtarih;
+--Sınıf ve no'ya göre öğrenci sayısını bulun
+select sinif, no, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by sinif,no;
+--Her sınıftaki en yüksek ve en düşük puanı bulun
+select sinif,MAX(puan) as en_yuksek_puan, MIN(puan) as en_dusuk_puan
+from ogrenci
+group by sinif;
+--Ortalama puanı 70'in üzerinde olan sınıfları listele
+select sinif,AVG(puan) as ortalama_puan
+from ogrenci
+group by sinif
+HAVING AVG(puan) > 45;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--Öğrenci tablosundaki tüm kayıtları listeleyin.
+select * from ogrenci
+--Öğrenci tablosundaki öğrenci no,ad ve soyad kayıtlarını listeleyin.
+select ogrno,ad,soyad from ogrenci
+--Öğrenci tablosundaki cinsiyeti kız olanları listeleyin.
+select *from ogrenci
+where cinsiyet='K'
+--Öğrenci tablosundaki cinsiyeti erkek olanları listeleyin.
+select *from ogrenci 
+where cinsiyet='E'
+---Öğrenci tablosundaki cinsiyeti hem erkek hem de kız olanları listeleyin.
+select *from ogrenci
+where cinsiyet IN('K','E');
+--Bir öğrenci tablosundan ismi tam olarak 4 karakter uzunluğunda olan öğrencileri listeleyin.
+select *from ogrenci 
+where ad LIKE '____';
+---Bir öğrenci tablosundan baş harfi M harfi ile başlayıp 3.karakteri L olan soyadları listeleyin.
+select *from ogrenci
+where soyad LIKE 'M_L%';
+--Bir öğrenci tablosundan puanın son rakamı 2 ile bitenleri listeleyin.
+select *from ogrenci
+where puan LIKE '%2';
+--Bir öğrenci tablosundan adı Gül ile başlayanları listeleyin.
+select *from ogrenci
+where ad LIKE 'Gül%';
+--Bir öğrenci tablosundan adda "ne"geçen isimleri listeleyin.
+select *from ogrenci
+where ad LIKE '%ne%';
+--Bir öğrenci tablosundan adda "il" ve "ra" geçen isimleri listeleyin.
+select *from ogrenci
+where ad LIKE '%il%ra%';
+--"Ogrenci tablosunda bulunan 'ad' sütunundaki tekrar edenleri kaldırarak, benzersiz (distinct) öğrenci isimlerini seçin."
+select DISTINCT ad
+from ogrenci;
+--Öğrenci tablosundan adı artan sırayla listele.
+select *from ogrenci
+ORDER BY ad;
+--Öğrenci tablosundan adı artan sırayla listele.
+select *from ogrenci
+ORDER BY soyad DESC;
+--Öğrenci tablosundan sınıfI artan, puanı azalan sırayla listele.
+select sinif,puan from ogrenci
+order by sinif ASC,puan DESC;
+--Öğrenci tablosundan ada göre gruplama yapın.
+SELECT ad, COUNT(*) AS isim_adedi
+from ogrenci
+Group by ad;
+--Tür tablosunda tür no ve tür adına göre gruplama ve her türdeki tür no ve adını bulun.
+select turno, ad, COUNT(*) as tur_adı
+from tur
+group by turno, ad;
+
+--Öğrenci tablosundan cinsiyet kolonuna göre gruplama ve her gruptaki öğrenci sayısını bulun.
+select cinsiyet, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+Group by cinsiyet;
+
+--Öğrenci tablosundan sinif sütununa göre gruplama ve her sınıftaki öğrencilerin ortalama puanı bulun.
+select sinif, AVG(puan) as ortalama_puan
+from ogrenci
+Group by sinif;
+--Öğrenci tablosundan dtarih sütununa göre gruplama ve her doğum tarihine göre öğrenci sayısını bulun.
+select dtarih, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by dtarih
+order by dtarih;
+--Öğrenci tablosundan ad ve soyad sütununa göre gruplama ve her isim kombinasyonuna göre öğrenci sayısını bulun.
+select ad,soyad, COUNT(*) as ogrenci_sayisi
+from ogrenci
+group by ad,soyad
+order by ad,soyad;
+--Öğrenci tablosundan sinif ve cinsiyet sütunlarına göre gruplama ve her sınıf ve cinsiyet kombinasyonuna göre ortalama puanı bulun.
+select sinif,cinsiyet, AVG(puan) as ortalama_puan
+from ogrenci
+group by sinif,cinsiyet
+order by sinif,cinsiyet;
+--Öğrenci tablosundan en yüksek ve en düşük puan bulun .
+select Max(puan) as en_yüksek_puan,MIN(puan) as en_düsük_puan
+from ogrenci;
+--Öğrenci tablosundan her sınıftaki en yüksek puanı  bulun.
+select sinif, Max(puan) as en_yüksek_puan
+from ogrenci
+GROUP BY sinif , puan;
+--Öğrenci tablosundan en genç ve en yaşlı öğrenciyi bulun.
+select Max(dtarih) as en_genc_ogrenci, MIN(dtarih) as en_yaslı_ogrenci
+from ogrenci;
+--Öğrenci tablosundan cinsiyete göre en yüksek  ve en düşük puanları bulun.
+select cinsiyet, MAX(puan) as en_yüksek_puan, MIN(puan) as en_düsük_puan
+from ogrenci 
+group by cinsiyet;
+--Öğrenci tablosundan en yüksek puanı alan öğrenciyi bulun.
+select *from ogrenci
+where puan=(select MAX(puan) from ogrenci);
+--Öğrenci tablosundan en düşük puanı alan öğrenciyi bulun.
+select *from ogrenci
+where puan=(select MIN(puan) from ogrenci);
+--Öğrenci tablosundan en yüksek puanı alan öğrenciyi bulun.
+select ad,soyad,puan
+from ogrenci
+where puan=(select Max(puan)as en_yüksek_puan from ogrenci);
+--Öğrenci tablosundan sınıflara göre öğrencileri bulun.
+select sinif,COUNT(*) ogrenci_sayisi
+from ogrenci
+group by sinif;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrencileri bulun.
+select ad,soyad ,COUNT(*) AS ogrenciler
+from ogrenci
+where dtarih>'2000-01-01'
+group by ad,soyad;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrenci sayısını bulun.
+select COUNT(*) AS ogrenciler
+from ogrenci
+where dtarih>'2000-01-01';
+--Öğrenci tablosundan adı 'A'ile başlayann öğrenci sayısını bulun.
+select COUNT(*) AS ogrenci_sayısı
+from ogrenci
+where ad LIKE 'A%';
+--Öğrenci tablosundan adı 'A'ile başlayann öğrencileri bulun.
+SELECT ad,COUNT(*)AS ogrenci_sayısı
+from ogrenci
+where ad LIKE 'A%'
+GROUP BY ad;
+--Öğrenci tablosundan belirli bir puandan düşük alan öğrencileri bulun.
+select ad,soyad,puan, COUNT(*) AS ogrenciler
+from ogrenci
+where puan<'78'
+group by ad,soyad,puan;
+--Öğrenci tablosundan belirli bir puandan düşük alan öğrenci sayısını bulun.
+select COUNT(*) AS ogrenciler
+from ogrenci
+where puan<'78';
+--Öğrenci tablosundan tüm öğrencilerin ortalama puanını bulun.
+select AVG(puan) as ortalama
+from ogrenci;
+--Öğrenci tablosundan sınıflara ortalama puanı bulun.
+select sinif,AVG(puan) as ortalama_puan
+from ogrenci 
+group by sinif;
+--Öğrenci tablosundan doğum yılına göre ortalama puanı bulun.
+select dtarih,AVG(puan) as ortalama_puan
+from ogrenci
+group by dtarih; 
+--Öğrenci tablosundan ortalama puanın üzerinde puan alan öğrencileri bulun.
+select AVG(puan) as yüksek_performans_ortalama
+from ogrenci
+where puan > (select AVG(puan) from ogrenci);
+--Öğrenci tablosundan tüm öğrencilerin toplam puanını bulun.
+select SUM(puan) as toplam_puan
+from ogrenci;
+--Öğrenci tablosundan cinsiyete göre toplam puanını bulun.
+select cinsiyet, SUM(puan) as toplam_puan
+from ogrenci
+group by cinsiyet;
+--Öğrenci tablosundan sınıflara göre toplam puanını bulun.
+select sinif,SUM(puan) as toplam_puan
+from ogrenci
+group by sinif;
+--Öğrenci tablosundan doğum yılına göre toplam puanını bulun.
+select dtarih, SUM(puan) as toplam_puan
+from ogrenci
+group by dtarih;
+--Öğrenci tablosundan doğum yılına göre toplam puanını bulun.
+select YEAR(dtarih) as dogum_yili, Sum(puan) as toplam_puan
+from ogrenci
+group by dtarih;
+--Öğrenci tablosundan ad,soyada göre toplam puanını bulun.
+select ad,soyad, SUM(puan) as toplam_puan
+from ogrenci
+group by ad,soyad
+--Öğrenci tablosundan cinsiyet ve sınıfa soyada göre toplam puanını bulun.
+select cinsiyet,sinif, SUM(puan) as toplam_puan
+from ogrenci
+group by cinsiyet,sinif;
+--Öğrenci tablosundan belirli bir tarihten sonra doğan öğrencilerin toplam puanını bulun.
+select SUM(puan) as toplam_puan
+from ogrenci
+where dtarih > '1988-01-01';
+--Öğrenci tablosundan belirli sınıflardaki öğrencileri listele.
+select *from ogrenci
+where sinif IN('9C', '10D','12B');
+--Öğrenci tablosundan belirli öğrenci numaralarına sahip öğrencileri listele.
+select *from ogrenci
+where no IN('80','81','82','83');
+--Öğrenci tablosundan belirli isimlerine sahip öğrencileri listele.
+select *from ogrenci
+where ad IN('Ayşe', 'Büşra', 'Meltem', 'Ali');
+--Öğrenci tablosundan belirli yıllarda doğan öğrencileri listele.
+select *from ogrenci
+where YEAR(dtarih) IN(1948,1949,1950);
+--Öğrenci tablosundan belirli puan aralıklarındaki öğrencileri listele.
+select *from ogrenci
+where puan IN(63,70,75,80,90);
+--Öğrenci tablosundan belirli cinsiyetlerdeki öğrencilerin ortalama puanını hesapla.
+select cinsiyet, AVG(puan) as ortalama_puan
+from ogrenci
+where cinsiyet IN('K','E')
+GROUP BY cinsiyet;
+--Öğrenci tablosundan ad ve soyadlarını birleştirerek tam isimlerini oluşturur.
+select CONCAT(ad,  '  '  , soyad) as tam_isim
+from ogrenci;
+--Öğrenci tablosundan öğrenci numarası ve ismi birleştirir.
+select CONCAT(ogrno, ' - ', ad, '  ' , soyad) as ogrenci_bilgisi
+from ogrenci;
+--Öğrenci tablosundan öğrenci bilgilerini tek bir kolonda birleştirir.
+select CONCAT(ogrno, ' l ', ad, ' ', soyad, ' l ', dtarih, ' l ', cinsiyet, ' l ', sinif, ' l ', 
+puan, ' l ', no) as ogeenci_detay
+from ogrenci;
+--Öğrenci tablosundan e-posta adresi oluşturur.
+select ad,soyad,CONCAT(LOWER(ad),  '.', LOWER(soyad), '@okul.edu') as email
+from ogrenci;
+--Öğrenci tablosundan öğrencileri puana göre azalan sırada sırala.
+select *from ogrenci
+order by puan DESC;
+--Öğrenci tablosundan öğrencileri soyadına göre alfabetik sırala.
+select *from ogrenci
+order by soyad,ad;
+--Öğrenci tablosundan öğrencileri sınıfa göre artan puana göre azalan sırada sırala
+select *from ogrenci
+order by sinif ASC, puan DESC;
+--Öğrenci tablosundan doğum tarihine göre sırala(en geçten en yaşlıya)
+select dtarih
+from ogrenci
+order by dtarih DESC;
+--Öğrenci tablosundan öğrenci numarasına göre artan sırada sırala
+select *from ogrenci
+order by ogrno;
+--Öğrenci tablosundan öğrenci numarasına göre azalan sırada sırala
+select *from ogrenci
+order by ogrno DESC;
+--Öğrenci tablosundan öğrencileri ogrenci no ve sınıfa göre alfabetik sırala
+select ogrno, sinif 
+from ogrenci
+order by ogrno,sinif ASC;
+--Öğrenci tablosundan öğrencileri puana göre azalan sırala ve ilk 30 öğrenciyi göster.
+select TOP 30 *from ogrenci
+order by puan DESC;
+--Öğrenci tablosundan öğrencileri adlarının son harfine göre alfabetik sırala
+SELECT *
+FROM ogrenci
+ORDER BY RIGHT(ad, 1) ASC; 
+--Sınıflara göre ögrenci sayısını bulun
+select sinif, COUNT(*) as ogrenci_sayisi
+from ogrenci
+group by sinif;
+--Cinsiyete göre öğrenci sayısı ve ortalama puanı bulun
+select cinsiyet, COUNT(*) AS ogrenci_sayisi, AVG(puan) as ortalama_puan
+from ogrenci
+group by cinsiyet;
+--Doğum yılına göre öğrenci sayısını bulun
+select dtarih, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by dtarih;
+--Sınıf ve no'ya göre öğrenci sayısını bulun
+select sinif, no, COUNT(*) AS ogrenci_sayisi
+from ogrenci
+group by sinif,no;
+--Her sınıftaki en yüksek ve en düşük puanı bulun
+select sinif,MAX(puan) as en_yuksek_puan, MIN(puan) as en_dusuk_puan
+from ogrenci
+group by sinif;
+--Ortalama puanı 70'in üzerinde olan sınıfları listele
+select sinif,AVG(puan) as ortalama_puan
+from ogrenci
+group by sinif
+HAVING AVG(puan) > 45;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
