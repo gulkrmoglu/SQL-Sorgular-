@@ -1,0 +1,930 @@
+--toplam çalışan sayısı
+select count(*) as toplam_calisan
+from employees;
+--ünvanlara göre çalışan sayısı
+select Title, count(*) as calisan_sayısı
+from Employees
+group by Title
+order by calisan_sayısı;
+
+--ülkelere göre çalışan sayısı
+select Country, count(*) as calisan_sayısı
+from Employees
+group by Country
+order by calisan_sayısı;
+
+--şehirlere göre çalışan sayısı
+select City,Count(*) as calisan_sayısı
+from Employees
+group by City
+order by calisan_sayısı ASC;
+
+--hitap şekline göre çalışan sayısı
+select TitleOfCourtesy, Count(*) as calisan_sayısı
+from Employees
+group by TitleOfCourtesy
+ORDER BY calisan_sayısı ASC;
+
+--işe alım yılına göre çalışan sayısı
+select year(HireDate) as ise_alim_yılı, count(*) as calisan_sayısı
+from Employees
+group by year(HireDate)
+order by calisan_sayısı ASC;
+
+--doğum yılına göre çalışan sayısı
+select year(BirthDate) as dogum_yılı, Count(*) as calisan_sayısı
+from Employees
+group by year(BirthDate)
+order by calisan_sayısı ASC;
+
+--bölgelere göre çalışan sayısı
+select Region, count(*) as calisan_sayısı
+from Employees
+group by Region
+order by calisan_sayısı ASC;
+
+--posta koduna göre çalışan sayısı
+select PostalCode, Count(*) as calisan_sayısı
+from Employees
+group by  PostalCode
+order by calisan_sayısı ASC;
+
+--ünvan ve ülkeye göre çakışan sayısı
+select Title,Country, Count(*) as calisan_sayısı
+from Employees
+group by Title,Country
+order by calisan_sayısı ASC;
+
+--çalışanların toplam hizmet süresi
+select SUM(DATEDIFF(day,HireDate,GETDATE())) AS toplam_hizmet_süresi
+from Employees;
+
+--ünvanlara göre toplam hizmet süresi
+select Title, SUM(DATEDIFF(day,HireDate,GETDATE())) AS toplam_hizmet_süresi
+FROM Employees
+group by Title
+order by toplam_hizmet_süresi ASC;
+
+--ülkelere göre toplam hizmet süresi
+select Country, SUM(DATEDIFF(day, HireDate, GETDATE())) AS toplam_hizmet_süresi
+FROM Employees
+group by Country 
+order by toplam_hizmet_süresi ASC;
+
+--çalışanların toplam yaşı
+select SUM(DATEDIFF(year,BirthDate,GETDATE())) AS toplam_yası
+from Employees;
+
+--çalışanların ülkelere göre toplam yaşı
+select Country, SUM(DATEDIFF(year, BirthDate, GETDATE())) AS toplam_yas
+from Employees
+group by Country;
+
+--çalışanların ünvanlara göre toplam yaşı
+select Title, SUM(DATEDIFF(year,BirthDate,GETDATE())) AS toplam_yas
+FROM Employees
+GROUP BY Title
+order by toplam_yas ASC;
+
+--çalışanların şehirlere göre toplam yaşı
+select City, SUM(DATEDIFF(year,BirthDate,GETDATE())) AS toplam_yas
+FROM Employees
+group by City
+order by toplam_yas ASC;
+
+--çalışanların hitap şekline göre toplam hizmet süresi
+select TitleOfCourtesy, SUM(DATEDIFF(day,HireDate,GETDATE())) AS toplam_hizmet_süresi
+from Employees
+group by TitleOfCourtesy
+order by toplam_hizmet_süresi ASC;
+
+--çalışanların bölgelere göre toplam hizmet süresi
+select Region, SUM(DATEDIFF(day,HireDate,GETDATE())) AS toplam_hizmet_süresi
+FROM Employees
+group by Region
+order by toplam_hizmet_süresi ASC;
+
+--çalışanların posta koduna göre toplam yaşı
+select PostalCode, SUM(DATEDIFF(year, BirthDate,GETDATE())) AS toplam_yas
+from Employees
+group by PostalCode
+order by toplam_yas ASC;
+
+--çalışanların işe alım yılına göre toplam yaşı
+select YEAR(HireDate) as ise_alım_yılı, SUM(DATEDIFF(year,BirthDate,GETDATE())) AS toplam_yas
+FROM Employees
+group by YEAR(HireDate)
+order by toplam_yas ASC;
+
+--çalışanların ortalama yaşı
+select AVG(DATEDIFF(YEAR,BirthDate,GETDATE())) as ortalana_yas
+from Employees;
+
+--ünvanlara göre ortalama çalışan yaşı
+select Title, AVG(DATEDIFF(year,BirthDate,GETDATE())) AS ortalama_yas
+from Employees
+group by Title
+order by ortalama_yas ASC;
+
+--ülkelere göre ortalama çalışan yaşı
+select Country, SUM(DATEDIFF(year,BirthDate,GETDATE())) AS  ortalama_yas
+FROM Employees
+group by Country
+order by ortalama_yas ASC;
+
+--ortalama çalışan süresi(yıl cinsinden)
+select AVG(DATEDIFF(year,HireDate,GETDATE())) AS ortalama_calisma_süresi
+from Employees;
+
+--ünvanlara göre ortalama çalışma süresi
+select Title, AVG(DATEDIFF(year,HireDate,GETDATE())) AS ortalama_calisma_süresi
+from Employees
+group by Title
+order by ortalama_calisma_süresi ASC;
+
+--şehirlere göre ortalama çalışma süresi
+select City, AVG(DATEDIFF(year,HireDate,GETDATE())) AS ortalama_calisma_süresi
+FROM Employees
+group by City
+order by ortalama_calisma_süresi ASC;
+
+--hitap şekline göre ortalama yaş
+select TitleOfCourtesy, AVG(DATEDIFF(YEAR,BirthDate,GETDATE())) AS ortalama_yas
+from Employees
+group by TitleOfCourtesy
+order by ortalama_yas ASC;
+
+--bölgelere göre ortalama yaş
+select Region, AVG(DATEDIFF(year,BirthDate,GETDATE())) AS ortalama_yas
+FROM Employees
+group by Region
+order by ortalama_yas ASC;
+
+--işe alım yılına göre ortalama yaş
+select YEAR(HireDate)AS ise_alım_yılı, AVG(DATEDIFF(YEAR,BirthDate,GETDATE())) AS ortalama_yas
+FROM Employees
+GROUP BY YEAR(HireDate)
+ORDER BY ortalama_yas ASC;
+
+--ülke ve şehre göre ortalama çalışma süresi
+select Country, City, AVG(DATEDIFF(year,HireDate,GETDATE())) AS ortalama_calisma_süresi
+from Employees
+group by Country,City
+order by ortalama_calisma_süresi ASC;
+
+--en genç çalışan
+select MAX(BirthDate) as en_genc_calışan
+from Employees;
+
+--en geç işe alım tarihi
+select MAX(HireDate) as en_geç_ise_alım
+from Employees;
+
+--ünvanlara göre en geç doğum tarihi
+select Title, MAX(BirthDate) as en_geç_doğum_tarihi
+from Employees
+group by Title
+order by en_geç_doğum_tarihi ASC;
+
+--ülkelere göre en geç işe alım tarihi
+select Country, MAX(HireDate) as  en_geç_ise_alım
+from Employees
+group by Country
+order by  en_geç_ise_alım ASC;
+
+--alfabe sırasına göre son soyad
+select MAX(LastName) as son_soyad
+from Employees;
+
+--şehirlere göre alfabe sırasına göre son ad
+select City, MAX(FirstName) as son_ad
+from Employees
+group by City
+order by son_ad;
+
+--hitap şekline göre en geç doğum tarihi
+select TitleOfCourtesy, MAX(BirthDate) as en_geç_dogum_tarihi
+from Employees
+group by TitleOfCourtesy
+order by en_geç_dogum_tarihi DESC;
+
+--bölgelere göre en geç işe alım tarihi
+select Region, MAX(HireDate) as en_geç_işe_alım_tarihi
+from Employees
+group by Region
+order by en_geç_işe_alım_tarihi DESC;
+
+--en yüksek EmployeeID
+select MAX(EmployeeID) AS en_yüsek_employeeıd
+from Employees;
+
+--ülkeye ve sehire göre en geç doğum tarihi
+select Country,City, MAX(BirthDate) as en_geç_dogum_tarihi
+from Employees
+group by Country,City
+order by en_geç_dogum_tarihi DESC;
+
+--alfabe sırasına göre son posta kodu
+select MAX(PostalCode) AS son_posta_kodu
+from Employees;
+
+--ünvanlara göre alfabe sırasına göre son adres
+select Title, MAX(Address) as son_adres
+from Employees
+group by Title
+order by son_adres DESC;
+
+--en erken doğum tarihi(en yaşlı çalışan)
+select MIN(BirthDate) as en_yaslı_çalışan
+from Employees;
+
+--en erken işe alım tarihi
+select MIN(HireDate) as en_erken_işe_alım_tarihi
+from Employees;
+
+--ünvanlara göre en erken doğum tarihi
+select Title, MIN(BirthDate) as en_erken_dogum_tarihi
+from Employees
+group by Title
+order by en_erken_dogum_tarihi ASC;
+
+--ülkelere göre en erken işe alım tarihi
+select Country, MIN(HireDate) as en_erken_işe_alım_tarihi
+from Employees
+group by Country
+order by en_erken_işe_alım_tarihi ASC;
+
+--alfabe sırasına göre ilk soyadı
+select MIN(LastName) as ilk_soyadı
+from Employees;
+
+--şehirlere göre alfabe sırasına göre ilk ad
+select Country, MIN(FirstName) as ilk_ad
+from Employees
+group by Country
+order by ilk_ad ASC;
+
+--hitap şekline göre en erken doğum tarihi
+select TitleOfCourtesy, MIN(BirthDate) as en_erken_dogum_tarihi
+from Employees
+group by TitleOfCourtesy
+order by en_erken_dogum_tarihi ASC;
+
+--bölgelere göre en erken işe alım tarihi
+select Region, MIN(HireDate) as en_erken_ise_alım_tarihi
+from Employees
+group by Region
+order by en_erken_ise_alım_tarihi ASC;
+
+--en düşük employeeıd
+select MIN(EmployeeID) as employeeıd
+from Employees;
+
+--ülke ve şehre göre en erken doğum tarihi
+select Country,City, MIN(BirthDate) as en_erken_dogum_tarihi
+from Employees
+group by Country,City
+order by en_erken_dogum_tarihi ASC;
+
+--alfabe sırasına göre ilk posta kodu
+select MIN(PostalCode) as ilk_posta_kodu
+from Employees;
+
+--ünvanlara göre alfabe sırasına göre ilk adres
+select Title, MIN(Address) as ilk_adres
+from Employees
+group by Title
+order by ilk_adres ASC;
+
+--belirli ülkelerdeki çalışanları listele
+select EmployeeID,FirstName,LastName,Country 
+from Employees
+where Country IN('USA');
+
+--belirli ünvalara sahip çalışanları listele
+select EmployeeID,FirstName,LastName,Title
+from Employees
+where Title IN('Sales Representative', 'Sales Manager');
+
+--belirli şehirlerde yaşayan çalışanları listele
+select EmployeeID,FirstName,LastName,City
+from Employees
+where City IN('London','Seattle');
+
+--belirli hitap şekillerine göre çalışanları listele
+select EmployeeID,FirstName,LastName,TitleOfCourtesy
+from Employees
+where TitleOfCourtesy IN('Ms.','Dr.','Mrs.');
+
+--belirli bölgelerdeki çalışanları listele
+select EmployeeID,FirstName,LastName,Region
+from Employees
+where Region IN('WA');
+
+--belirli posta kodlarına göre çalışanları listele
+select EmployeeID,FirstName,LastName,PostalCode
+from Employees
+where PostalCode IN('98401','WG2 7LT','98052');
+
+--belirli yıllarda işe alınan çalışanları listele
+select EmployeeID,FirstName,LastName,HireDate
+from Employees
+where HireDate IN('1992-05-01 00:00:00.000','1994-01-02 00:00:00.000');
+
+--belirli yıllarda doğan çalışanları listele
+select EmployeeID,FirstName,LastName,BirthDate
+from Employees
+where BirthDate IN('1937-09-19 00:00:00.000','1963-07-02 00:00:00.000');
+
+--belirli ıdlere sahip olan çalışanları listele
+select EmployeeID,FirstName,LastName
+from Employees
+where EmployeeID IN('1','4','6');
+
+--belirli soyadlara sahip olan çalışanları listele
+select  EmployeeID,FirstName,LastName
+from Employees
+where LastName IN('Davolio','Suyama','Leverling');
+
+--belirli ülke ve şehirdeki çalışanları listele
+select EmployeeID,FirstName,LastName,Country,City
+from Employees
+where (Country='USA' AND City='Tacoma') OR (Country='UK' AND City='London');
+
+--tam adı birleştirme
+select EmployeeID, CONCAT(FirstName, ' ' , LastName) as tam_ad
+from Employees;
+
+--ünvan ve ismi birleştirme
+select EmployeeID, CONCAT(Title, ' ' , FirstName, ' ' , LastName) as isim
+from Employees;
+
+--tam adresi birleştirme
+select CONCAT(Address, ' ' , City, ' ' , Country) as address
+from Employees;
+
+--bölge bilgisini birleştirme
+select CONCAT(Region, ' ' , Country, ' ' , City) as bölge_bilgisi
+from Employees;
+
+--işe alım tarihini formatlayarak birleştirme
+select CONCAT(FirstName, ' ' , LastName, ' ', Format(HireDate, 'yyy-mm-dd')) as hiredate
+from Employees;
+
+--posta kodu ve şehri birleştirme
+select CONCAT(PostalCode, ' ' , City) as birleştirme
+from Employees;
+
+--doğum tarihi bilgisini birleştirme
+select CONCAT(FirstName, ' ' , LastName, ' ', FORMAT(BirthDate, 'yyyy-mm-dd')) as birthdate
+from Employees;
+
+--ülke ve ünvan bilgilerini birleştirme
+select CONCAT(Title, ' ', Country) as ülke_and_ünvan
+from Employees;
+
+--çalışanları alfabetik olarak sıralama
+select  FirstName,LastName
+from Employees
+order by FirstName,LastName ASC;
+
+--çalışanları işe alım tarihine göre sıralama (en yeniden en eskiye)
+select FirstName, LastName, HireDate
+from Employees
+order by HireDate DESC;
+
+--çalışanları ünvanlarına ve soyadlarına göre alfabetik sıralama
+select FirstName, LastName, Title
+from Employees
+order by Title;
+
+--çalışanların ülkeye ve şehre göre alfabetik sıralama
+select FirstName, LastName,Country, City
+from Employees
+order by Country, City;
+
+--çalışanları doğum tarihine göre sıralama (en yaşlıdan gence doğru)
+select FirstName, LastName, BirthDate
+from Employees
+order by BirthDate;
+
+--çalışanları bölgeye göre alfabetik sıralama
+select FirstName, LastName,Region
+from Employees
+order by Region;
+
+--çalışanları hitap şekline ve ada göre sıralama
+select FirstName,LastName, TitleOfCourtesy
+from Employees
+order by TitleOfCourtesy;
+
+--çalışanları adres uzunluğuna göre sırala
+select FirstName,LastName, Address
+from Employees
+order by LEN(Address) DESC;
+
+--çalışanları ülkeye göre alfabetik işe alım tarihine göre ters sıralama
+select FirstName,LastName, Country, HireDate
+from Employees
+order by Country, HireDate desc;
+
+--ikiden fazla çalışanı olan ülkeleri sırala
+select Country, COUNT(*) AS calısan_sayısı
+from Employees
+group by Country
+HAVING COUNT(*) > 2
+ORDER BY calısan_sayısı;
+
+--ortalama yaşı 50'den büyük olan ünvanları listele
+select Title, AVG(DATEDIFF(year,BirthDate,GETDATE())) AS ortalama_yas
+from Employees
+group by Title
+HAVING AVG(DATEDIFF(year,BirthDate,GETDATE())) >50
+ORDER BY ortalama_yas ASC;
+
+--en az iki farklı şehirde çalışanı olan ülkeleri listele
+select Country, COUNT(DISTINCT City) as citycount
+from Employees
+group by Country
+HAVING COUNT(DISTINCT City) >= 2
+ORDER BY citycount ASC;
+
+--toplam çalışma süresi 20 yıldan fazla olan şehirleri listele
+select City, SUM(DATEDIFF(DAY,HireDate,GETDATE())) AS toplam_calısma_süresi
+from Employees
+group by City
+HAVING  SUM(DATEDIFF(DAY,HireDate,GETDATE()))  >20
+ORDER BY toplam_calısma_süresi;
+
+--en az iki farklı hitap şekli olan ünvanları listele
+select Title , COUNT(DISTINCT TitleOfCourtesy ) AS hitap_sekli
+from Employees
+group by Title
+HAVING COUNT(DISTINCT TitleOfCourtesy) >2
+order by hitap_sekli;
+
+--ortalama işe alım yılı 1993'ten önce olan bölgeleri listele
+select Region, AVG(year(HireDate)) AS ortalama_ise_alım
+from Employees
+group by Region 
+HAVING AVG(year(HireDate)) < 1993
+order by ortalama_ise_alım;
+
+--en az üç çalışanı olan ve ortalama yaşı 40'tan büyük olan ülkeleri listele
+select Country,COUNT(*) AS calısan, AVG(year(BirthDate)) as ortalama_yas
+from Employees
+group by Country
+HAVING AVG(year(BirthDate))>40 AND COUNT(*) >=3
+ORDER BY calısan;
+
+--toplam adres uzunluğu 10 karakterden fazla olan şehirleri listele
+select City, SUM(LEN(Address)) as adres_uzunlugu 
+from Employees
+group by City
+HAVING SUM(LEN(Address)) >10
+order by adres_uzunlugu;
+
+--en az iki çalışanı olan ve tüm çalışanları aynı yılda işe alınan posta kodlarını listele
+select PostalCode, COUNT(*) AS calısan
+from Employees
+group by PostalCode
+HAVING COUNT(*) >=2 AND COUNT(DISTINCT YEAR(HireDate))=1
+order by calısan;
+
+--belirli bir ülkedeki çalışanları listele
+select FirstName,LastName,Country
+from Employees
+where Country='USA';
+
+--belirli bir tarihten sonra işe alınan çalışanları listele
+select FirstName,LastName,HireDate
+from Employees
+where HireDate > '1992-05-01';
+
+--belirli bir ünvana sahip çalışanları listele
+select FirstName,LastName,Title
+from Employees
+where Title='Sales Representative';
+
+--belirli bir yaştan büyük çalışanları listele
+select FirstName,LastName,BirthDate
+from Employees
+where DATEDIFF(YEAR,BirthDate,GETDATE()) > 45;
+
+--belirli bir şehirde yaşayan çalışanları listele
+select FirstName,LastName,City
+from Employees
+where City='Seattle';
+
+--adı 'A' ile başlayanları listele
+select FirstName,LastName
+from Employees
+where FirstName LIKE 'A%';
+
+--bölgesi belirtilmemiş çalışanları listele
+select FirstName,LastName,Region
+from Employees
+where Region IS NULL;
+
+--belirli bir posta koduna sahip çalışanları listele
+select FirstName,LastName,PostalCode
+from Employees
+where PostalCode='98033';
+
+--belirli bir hitap şekline sahip çalışanları listele
+select FirstName,LastName,TitleOfCourtesy
+from Employees
+where TitleOfCourtesy='Ms.';
+
+--belirli bir yılda doğan çalışanları listele
+select FirstName,LastName,BirthDate
+from Employees
+where year(BirthDate)='1963';
+
+--adresi belirli bir kelimeyi içeren çalışanları listele
+select FirstName,LastName,Address
+from Employees
+where Address LIKE '%o%';
+
+--belirli bir tarih aralığında işe alınan çalışanları listele
+select FirstName,FirstName,HireDate
+from Employees
+where HireDate BETWEEN '1992-01-01' and '1993-12-31';
+
+--soyadı 'B' ile başlayan ve 'n' ile biten çalışanları listele
+select FirstName,LastName
+from Employees
+where LastName LIKE'B%n'; 
+
+--ev telefonu olan çalışanları listele
+select FirstName,LastName,HomePhone
+from Employees
+where HomePhone='(206) 555-9482';
+
+--belirli ülkelerden birinde yaşayan çalışanları listele
+select FirstName,LastName,Country
+from Employees
+where Country IN('USA', 'UK');
+
+--belirli bir ülkede yaşayan ve belirli ünvanlara sahip çalışanları listele
+select FirstName,LastName,Title,Country
+from Employees
+where Title='Vice President, Sales' and Country='USA';
+
+--belirli bir tarihten sonra işe alınan ve belirli bir yaştan küçük çalışanları listele
+select FirstName,LastName,HireDate,BirthDate
+from Employees
+where HireDate >'1992-05-01 00:00:00.000' AND DATEDIFF(YEAR,BirthDate,GETDATE()) < 50;
+
+--belirli bir şehirde yaşayan ve belirli bir hitap şekline sahip çalışanları listele
+select FirstName,LastName,TitleOfCourtesy,City
+from Employees
+where City='London' AND TitleOfCourtesy='Mr.';
+
+--adı 'N'ile başlayan ve soyadı 'o' ile biten çalışanları listele
+select FirstName,LastName
+from Employees
+where FirstName LIKE 'N%' AND LastName LIKE'%o';
+
+--belirli bir bölgede çalışan ve belirli bir yılda işe alına çalışanları listele
+select FirstName,LastName,Region,HireDate
+from Employees
+where Region='WA' and year(HireDate)='1993';
+
+--belirli bir yılda doğan ve belirli bir yılda işe alınan çalışanları listele
+select FirstName,LastName, BirthDate,HireDate
+from Employees
+where year(BirthDate)='1948' and year(HireDate)='1992';
+
+--belirli bir ülkede yaşayan ve adresi belirli bir kelimeyi içeren çalışanları listele
+select FirstName,LastName,Country,Address
+from Employees
+where Country='UK' AND Address LIKE '%Coventry%';
+
+--belirli bir tarih aralığında işe alınan ve belirli bir ünvana sahip çalışanları listele
+select FirstName, LastName,Title,HireDate
+from Employees
+where year(HireDate)='1994' and year(HireDate)='1993' or Title='Ms.';
+
+--adı ve soyadı belirli bir uzunlukta olan çalışanları listele
+select FirstName,LastName
+from Employees
+where LEN(FirstName) >3 and LEN(LastName) > 3;
+
+--belirli ünvanlara sahip çalışanları listeleyen sorgu
+select FirstName,LastName, Title
+from Employees
+where Title='Vice President, Sales' or Title='Sales Manager';
+
+--belirli ülkelerde çalışanları listeleyen sorgu
+select FirstName,LastName,Country
+from Employees
+where Country='USA' or Country='UK';
+
+--belirli bir tarihten önce işe alınan veya belirli bir tarihten sonra doğan çalışanları listele
+select FirstName,LastName,HireDate,BirthDate
+from Employees
+where HireDate <1994 or BirthDate >1970;
+
+--belirli bir şehirde yaşayan veya belirli bir ünvana sahip çalışanları listele
+select FirstName,LastName,City,Title
+from Employees
+where City='Redmond' or Title='engineer';
+
+--adı veya soyadı belirli harflerle başlayan çalışanları listele
+select FirstName,LastName
+from Employees
+where FirstName LIKE 'B%' OR LastName LIKE 'C%';
+
+--belirli bir yaşın üzerinde olan veya belirli bir süre önce işe alınan çalışanları listele
+select FirstName,LastName, BirthDate, HireDate
+from Employees
+where DATEDIFF(YEAR,BirthDate,GETDATE()) > 55 or DATEDIFF(year,HireDate,GETDATE()) > 25;
+
+--posta kodu belirli bir aralıkta olan veya bölgesi NULL olan çalışanları listele
+select FİrstName,LastName,PostalCode,Region
+from Employees
+where (PostalCode>='98122' and PostalCode<='98052') or Region IS NULL;
+
+--belirli hitap şekillerine sahip veya belirli bir ülkede yaşayan çalışanları listele
+select FirstName,LastName,TitleOfCourtesy,Country
+from Employees
+where TitleOfCourtesy IN('Mr.','Ms.') or Country='UK';
+
+--adı veya soyadı belirli bir uzunlukta olan çalışanları listele
+select FirstName,LastName
+from Employees
+where LEN(FirstName)>4 OR LEN(LastName)>5;
+
+--'Sales Representative'olmayan çalışanları listele
+select FirstName,LastName,Title
+from Employees
+where NOT Title='Sales Representative';
+
+--USA'da yaşamayan çalışanları listele
+select FirstName,LastName,Country
+from Employees
+WHERE NOT Country='USA';
+
+--1960'tan önce doğmamış çalışanları listele
+select FirstName,LastName,BirthDate
+from Employees
+where NOT BirthDate < '1960-12-31';
+
+--London veya Seattle'de yaşamayan çalışanları listele
+select FirstName,LastName,City
+from Employees
+where NOT City IN ('London','Seattle');
+
+--soyadı 'B' ile başlamayan çalışanları listele
+select FirstName,LastName
+from Employees
+where NOT LastName LIKE 'B%';
+
+--60 yaşından genç çalışanları listele
+select FirstName,LastName,BirthDate
+from Employees
+where NOT DATEDIFF(YEAR,BirthDate,GETDATE()) >=60;
+
+--posta kodu belirli bir aralıkta olmayan çalışanları listele
+select FirstName,LastName,PostalCode
+from Employees
+where NOT (PostalCode='98033' and PostalCode='98122');
+
+--'Mr.' veya 'Dr.' hitap şekline sahip olmayan çalışanları listele
+select FirstName,LastName,TitleOfCourtesy
+from Employees
+where NOT TitleOfCourtesy IN ('Mr.','Dr.');
+
+--Region belirtilmiş çalışanları listele
+select FirstName,LastName,Region
+from Employees
+where NOT Region IS NULL;
+
+--1993 yılında işe alınmamış çalışanları listele
+select FirstName,LastName,HireDate
+from Employees
+where NOT YEAR(HireDate)='1993';
+
+--adı 5 karakterden uzun olmayan çalışanları listele
+select FirstName,LastName
+from Employees
+where NOT LEN(FirstName) >5;
+
+--'Sales Representative' kelimesini unvanında içermeyen çalışanları listele
+select FirstName,LastName,Title
+from Employees
+where Not Title LIKE'%Sales Representative%';
+
+--Region'u NULL olan çalışanları listele
+select FirstName,LastName,Region
+from Employees
+where Region IS NULL;
+
+--Regionu NULL olmayan çalışanları lşstele
+select FirstName,LastName,Region
+from Employees
+where Region IS NOT NULL;
+
+--PostalCode'u NULL olan çalışanları listele
+select FirstName,LastName,PostalCode
+from Employees
+where PostalCode IS NULL;
+
+--NULL olmayan Region değerlerini listele
+select DISTINCT Region
+from Employees
+where Region IS NOT NULL;
+
+--Region NULL olan çalışanların sayısını gösteren sorgu 
+select Region, COUNT(*) as calısan_sayısı
+from Employees
+where Region IS NULL;
+
+--her ülke için NULL Region sayısını gösteren sorgu
+select Country, COUNT(*) as region_count
+from Employees
+where Region IS NULL
+group by Country;
+
+--Region NULL ise 'Unspecified' olarak gösteren sorgu
+select FirstName,LastName,ISNULL (Region,'Unspecified')
+from Employees;
+
+--PostalCode NULL ise 'N/A' olarak gösteren sorgu
+select FirstName,LastName, ISNULL (PostalCode,'N/A')
+FROM Employees;
+
+--Benzersiz ülkeleri listele
+select DISTINCT Country
+from Employees
+order by Country;
+
+--benzersiz şehirleri listele
+select DISTINCT City
+from Employees
+order by City;
+
+--benzersiz ünvanları listele
+select DISTINCT Title
+from Employees
+order by Title;
+
+--benzersiz hitap şekillerini listele
+select DISTINCT TitleOfCourtesy
+from Employees
+order by TitleOfCourtesy;
+
+--benzersiz bölgeleri listele
+select DISTINCT Region
+from Employees
+order by Region;
+
+--benzersiz ülke ve şehir kombinasyonlarını listele
+select DISTINCT Country,City
+from Employees
+order by Country,City;
+
+--soyadı 'B' ile başlayanları sorgula
+select FirstName,LastName
+from Employees
+where LastName LIKE 'B%';
+
+--adı 'A' ile biten çalışanları sorgula
+select FirstName,LastName
+from Employees
+where FirstName LIKE '%A';
+
+--unvanında 'Manager' kelimesi geçen çalışanları listele
+select FirstName,LastName,Title
+from Employees
+where Title LIKE '%Manager%';
+
+--adında 'an' bulunan çalışanları listele
+select FirstName,LastName
+from Employees
+where FirstName LIKE 'an%';
+
+--soyadı 6 harfli olan çalışanları listele
+select FirstName,LastName
+from Employees
+where LastName LIKE '______';
+
+--adreste 'Ave' geçen çalışanları sorgula
+select FirstName,LastName,Address
+from Employees
+where Address LIKE '%Ave%';
+
+--ülkesi 'U' ile başlayıp 'A'ile biten çalışanları sorgula
+select FirstName,LastName,Country
+from Employees
+where Country LIKE 'U%A';
+
+--unvanda 'es' ve 'res'geçenleri listele
+select FirstName,LastName, Title
+from Employees
+where Title LIKE '%es%res%';
+
+--telefon numarasında '555' geçen rakamları listele
+select FirstName,LastName,HomePhone
+from Employees
+where HomePhone LIKE '%555%';
+
+--çalışanları doğum yıllarına göre listele
+select FirstName,LastName,YEAR(BirthDate) as dogum_yılı
+from Employees
+order by dogum_yılı;
+
+--1950 yılında doğan çalışanları listele
+select FirstName,LastName,BirthDate
+from Employees
+where year(BirthDate)='1960';
+
+--çalışanları işe alındıkları yıla göre listele
+select FirstName,LastName,YEAR(HireDate) as ise_alıs_tarihi
+from Employees
+order by ise_alıs_tarihi;
+
+--1993 yılında işe alınan çalışanları listele
+select FirstName,LastName,HireDate
+from Employees
+where YEAR(HireDate)='1993';
+
+--çalışanların yaşlarını hesaplayan sorgu
+select FirstName,LastName,BirthDate, year(GETDATE())-YEAR(BirthDate) as yas
+from Employees
+order by yas;
+
+--60 yaşından büyük çalışanları listele
+select FirstName,LastName,BirthDate,year(GETDATE())-YEAR(BirthDate) as yas
+from Employees
+where year(GETDATE())-YEAR(BirthDate)>60
+order by yas;
+
+--çalışanları şirketteki çalışma sürelerini yıl olarak hesaplayan sorgu
+select FirstName,LastName,HireDate,year(GETDATE())-YEAR(HireDate) as calısma_süresi
+from Employees
+order by calısma_süresi;
+
+--1992'lerde işe alınan çalışanları listeleyen sorgu
+select FirstName,LastName,HireDate
+from Employees
+where year(HireDate) between 1990 and 1999;
+
+--her yıl işe alınan çalışan sayısını gösteren sorgu 
+select year(HireDate) as calısan, COUNT(*) AS calısan_sayısı
+from Employees
+group by year(HireDate)
+order by calısan_sayısı;
+
+--sipariş almış çalışanları ve mevcut siparişleri gösteren sorgu 
+select e.EmployeeID,e.FirstName,e.LastName,o.OrderID,o.CustomerID
+FROM Employees e
+INNER JOIN Orders o ON e.EmployeeID=o.EmployeeID;
+
+--her bir çalışanı sorumlu olduğu bölgelerle eşleştiren sorgu
+select e.EmployeeID,e.FirstName,e.LastName,et.TerritoryID
+FROM Employees e
+INNER JOIN EmployeeTerritories et ON e.EmployeeID=et.EmployeeID;
+
+--her bir çalışanı sorumlu olduğu bölgelerle ve bu bölgelerin açıklamalarıyla eşleştiren sorgu
+select e.EmployeeID,e.FirstName,LastName,t.TerritoryID,t.TerritoryDescription
+from Employees e
+INNER JOIN EmployeeTerritories et ON e.EmployeeID=et.EmployeeID
+INNER JOIN Territories t ON t.TerritoryID=et.TerritoryID;
+
+--her siparişi, siparişi alan çalışan ve siparişi veren müşteri blgilerini eşleştiren sorgu
+select e.EmployeeID,e.FirstName,e.LastName,o.OrderID,c.CustomerID
+from Employees e
+INNER JOIN Orders o ON e.EmployeeID=o.EmployeeID
+INNER JOIN Customers c ON o.CustomerID=c.CustomerID;
+
+--her çalışanı aldığu siparişlerdeki ürünlerle eşleştiren sorgu
+select DISTINCT e.EmployeeID, e.FirstName, e.LastName,o.OrderID,od.OrderID,p.ProductID
+FROM Employees e
+INNER JOIN Orders o ON e.EmployeeID=o.EmployeeID
+INNER JOIN [Order Details] od ON o.OrderID=od.OrderID
+INNER JOIN ProductS p ON p.ProductID=od.ProductID;
+
+--hangi çalışanlar, hangi siparişleri yönetiyor? Eğer bir çalışan sipariş yönetmiyorsa, bu çalışanların bilgileri de dahil 
+--olacak şekilde tüm çalışanların listesi ve yönettikleri siparişlerin kimlik numaralarını listeleyin
+select e.EmployeeID,e.FirstName,e.LastName,o.OrderID
+FROM Employees e
+LEFT JOIN Orders o ON e.EmployeeID=o.EmployeeID;
+
+--hangi çalışanlar, hangi bölgelerde görev yapıyor? Eğer bir çalışanın görev yaptığı bir bölge yoksa, bu çalışanların bilgileri de 
+--dahil olacak şekilde tüm çalışanların listesi ve görev yaptıkları bölgelerin kimlik numaralarını listeleyin.
+select e.EmployeeID,e.FirstName,e.LastName,et.TerritoryID
+FROM Employees e
+LEFT JOIN EmployeeTerritories et ON e.EmployeeID=et.EmployeeID;
+
+
+
+
+
+
+
+
+
+
+
